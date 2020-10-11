@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ item.name }}
+{% endblock %}
+
+{% block header %}
+    <a href="/">Home</a>
+    <span> - </span>
+    {{ item.name }}
+{% endblock %}
+
+
+{% block content %}
+    {% if item %}
+        <div class="container card">
+            <div class="row">
+                <div class="col-6">
+                    <img class="img-fluid" src="{% static 'img/product.png' %}" alt="img"/>
+                    <div class="text-center">{{ item.name }}</div>
+                </div>
+                <div class="col-6 card justify-content-center">
+                    <div class="text-center">{{ item.description }}</div>
+                    <div class="text-center">{{ item.price }}</div>
+                    <button id="submitBtn" class="btn btn-block btn-primary">
+                        Buy
+                    </button>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        No items for you:(
+    {% endif %}
+    <script src="{% static 'js/configKey.js' %}" type="text/javascript"></script>
+    <script type="text/javascript">
+        document.querySelector("#submitBtn").addEventListener("click", () => {
+            // Get Checkout Session ID
+            fetch("/buy/{{ item.id }}")
+                .then(result => result.json())
+                .then(data => stripe.redirectToCheckout({sessionId: data.sessionId}))
+        })
+    </script>
+{% endblock %}

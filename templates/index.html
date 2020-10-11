@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Items
+{% endblock %}
+
+{% block header %}
+    List of items
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% if items %}
+            <ul class="card-deck text-center">
+                {% for item in items %}
+                    <li class="card">
+                        <a href="/item/{{ item.id }}">
+                            <div class="card-header">
+                                {{ item.name }}
+                            </div>
+                            <div class="card-body">
+                                <img class="img-fluid" src="{% static 'img/product.png' %}" alt="">
+                                <div class="card-title">
+                                    {{ item.price }}
+                                </div>
+                                <div class="description">
+                                    {{ item.description }}
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            No items for you:(
+        {% endif %}
+    </div>
+{% endblock %}

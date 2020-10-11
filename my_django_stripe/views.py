@@ -4,8 +4,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
-from my_django_stripe_test import settings
-from my_django_stripe_test.models import Item
+from my_django_stripe import settings
+from my_django_stripe.models import Item
 
 
 def index(request):

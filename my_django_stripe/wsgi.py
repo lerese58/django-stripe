@@ -1,5 +1,5 @@
 """
-WSGI config for my_django_stripe_test project.
+WSGI config for my_django_stripe project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'my_django_stripe_test.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'my_django_stripe.settings')
 
 application = get_wsgi_application()

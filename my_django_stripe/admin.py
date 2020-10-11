@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from my_django_stripe_test.models import Item
+from my_django_stripe.models import Item
 
 
 class AuthorAdmin(admin.ModelAdmin):

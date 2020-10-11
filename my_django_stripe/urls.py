@@ -1,4 +1,4 @@
-"""my_django_stripe_test URL Configuration
+"""my_django_stripe URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from my_django_stripe_test import views
+from my_django_stripe import views
 
 urlpatterns = [
     path('', views.index),

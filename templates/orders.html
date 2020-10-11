@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    Orders
+{% endblock %}
+
+{% block title %}
+    Orders
+{% endblock %}
+
+{% block content %}
+    {% if order_list %}
+        <ul>
+            {% for order in order_list %}
+                <li class="card">
+                    <a href="/order/{{ order.id }}">
+                        <h2>Заказ {{ order.name }}</h2>
+                    </a>
+                    <ul>
+                        {% for order_item in order.orderitems %}
+                            <li>
+                                <a href="/item/{{ order_item.item_id }}">
+                                    <h3>{{ order_item.name }}</h3>
+                                </a>
+                                <div>Count: {{ order_item.quantity }}</div>
+                                <div>Pre-total: {{ order_item.pretotal }}</div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <div>Total: {{ order.total }}</div>
+            {% endfor %}
+        </ul>
+    {% else %}
+        No orders:(
+    {% endif %}
+{% endblock %}

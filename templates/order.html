@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ order.name }}
+{% endblock %}
+
+{% block header %}
+    <a href="/">Home</a>
+    <span> - </span>
+    {{ order.name }}
+{% endblock %}
+
+{% block content %}
+    {% if order %}
+        <div class="container card">
+            <div class="row">
+                <div class="col-6">
+                    <img class="img-fluid" src="{% static 'img/product.png' %}" alt="img"/>
+                    <div class="text-center">{{ order.name }}</div>
+                </div>
+                <div class="col-6 card justify-content-center">
+                    <ul>
+                        {% for order_item in order.orderitems %}
+                            <li>
+                                <a href="/item/{{ order_item.item_id }}">
+                                    <h3>{{ order_item.name }}</h3>
+                                </a>
+                                <div>Count: {{ order_item.quantity }}</div>
+                                <div>Pre-total: {{ order_item.pretotal }}</div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    </li>
+                    <div>Total: {{ order.total }}</div>
+                    <button id="submitOrderBtn" class="btn btn-block btn-primary">
+                        Buy
+                    </button>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        No items for you:(
+    {% endif %}
+    <script src="{% static 'js/configKey.js' %}" type="text/javascript"></script>
+    <script type="text/javascript">
+        document.querySelector("#submitOrderBtn").addEventListener("click", () => {
+            // Get Checkout Session ID
+            fetch("/order/{{ order.id }}/buy")
+                .then(result => result.json())
+                .then(data => stripe.redirectToCheckout({sessionId: data.sessionId}))
+        })
+    </script>
+{% endblock %}

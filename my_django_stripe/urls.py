@@ -21,8 +21,10 @@ from my_django_stripe import views
 urlpatterns = [
     path('', views.index),
     path('item/<int:item_id>', views.item_page),
+    path('order/<int:order_id>', views.order_page),
+    path('order/<int:order_id>/buy', views.create_checkout_session),
     path('buy/<int:item_id>', views.create_checkout_session),
-    # path('create-checkout-session/', views.create_checkout_session),
+    path('orders/', views.orders_list),
     path('config/', views.stripe_config),
     path('success/', views.SuccessView.as_view()),
     path('cancelled/', views.CancelledView.as_view()),

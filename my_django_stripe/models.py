@@ -1,7 +1,4 @@
-from enum import Enum
-
 from django.db import models
-from django.db.models import Sum
 
 
 class TotalPriceManager(models.Manager):
@@ -10,9 +7,9 @@ class TotalPriceManager(models.Manager):
 
 
 class Item(models.Model):
-    name = models.CharField(max_length=127)
-    description = models.TextField()
-    price = models.DecimalField(max_digits=9, decimal_places=2)
+    name = models.CharField(max_length=127, null=False)
+    description = models.TextField(null=True)
+    price = models.DecimalField(max_digits=9, decimal_places=2, null=False)
     # orders = models.ManyToManyField('Order', through='OrderItem')
     # currency = models.CharField(choices=[])
 
@@ -22,20 +19,16 @@ class OrderItem(models.Model):
     order = models.ForeignKey('Order', on_delete=models.CASCADE)
     quantity = models.IntegerField()
 
-    @property
-    def cost(self):
-        return self.item.price * self.quantity
-
 
 class Order(models.Model):
-    name = models.CharField(max_length=10, default='ORDER_UNNAMED')
+    name = models.CharField(max_length=20, default='ORDER_UNNAMED')
     orderitems = models.ManyToManyField('Item', through='OrderItem')
     STATUS_CHOICES = (
         ('CREATED', 'Created'),
         ('PAID', 'Paid'),
         ('CANCELLED', 'Cancelled')
     )
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Created')
 
     @property
     def total_price(self):

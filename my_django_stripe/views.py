@@ -69,7 +69,7 @@ def create_checkout_session(request, order_id=None, item_id=None):
     orderitems_list = [{'name': orderitem['name'],
                         'quantity': orderitem['quantity'],
                         'currency': 'usd',
-                        'amount': orderitem['pretotal']} for orderitem in order_obj.get('orderitems')]
+                        'amount': int(orderitem['pretotal']) * 100} for orderitem in order_obj.get('orderitems')]
     try:
         checkout_session = stripe.checkout.Session.create(
             success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',

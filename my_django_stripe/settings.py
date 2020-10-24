@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'nl_n(@smr4aow&p#qi8%)otleq$eih!^*myzw&7oq4g7a1_4cd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -53,8 +53,7 @@ ROOT_URLCONF = 'my_django_stripe.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,5 +115,4 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
-STRIPE_PUBLISHABLE_KEY = 'pk_test_TYooMQauvdEDq54NiTphI7jx'
-STRIPE_SECRET_KEY = 'sk_test_4eC39HqLyjWDarjtT1zdp7dc'
+from .settings_local import *

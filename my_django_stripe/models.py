@@ -10,8 +10,6 @@ class Item(models.Model):
     name = models.CharField(max_length=127, null=False)
     description = models.TextField(null=True)
     price = models.DecimalField(max_digits=9, decimal_places=2, null=False)
-    # orders = models.ManyToManyField('Order', through='OrderItem')
-    # currency = models.CharField(choices=[])
 
 
 class OrderItem(models.Model):
@@ -37,12 +35,3 @@ class Order(models.Model):
         for orderitem in orderitems:
             total += orderitem.quantity * orderitem.item.price
         return total
-
-# class Discount(models.Model):
-#     order = models.ForeignKey(to=Order, null=True, blank=True)
-#     amount = models.DecimalField(decimal_places=2)
-#
-#
-# class Tax(models.Model):
-#     order = models.ForeignKey(to=Order)
-#     amount = models.DecimalField(decimal_places=2)
